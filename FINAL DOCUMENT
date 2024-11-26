@@ -1,0 +1,214 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AS Cake Shop</title>
+  <style>
+    /* General Styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: url('https://i.imgur.com/ePpQ4Ev.jpg') no-repeat center center fixed;
+      background-size: cover;
+    }
+
+    header {
+      background-color: rgba(255, 111, 97, 0.9);
+      color: white;
+      text-align: center;
+      padding: 15px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      
+    }
+       header h1 {
+      font-size: 2.5em;
+      font-family: 'Georgia', serif;
+    }
+
+    .container {
+      padding: 20px;
+      margin: auto;
+      max-width: 800px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .hidden {
+      display: none;
+    }
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      background-color: #ff6f61;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #e55b50;
+    }
+    .cake-card {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      background: linear-gradient(135deg, #fff 70%, #ffe3e3);
+      box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .cake-card img {
+      width: 100px;
+      height: 100px;
+      border-radius: 10px;
+      margin-right: 15px;
+    }
+
+    .cake-card h3 {
+      margin: 0;
+      color: #333;
+      font-size: 1.2em;
+    }
+
+    .cake-card p {
+      color: #666;
+      font-size: 0.9em;
+    }
+    #cart-items {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #cart-items li {
+      font-size: 1.1em;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to AS Cake Shop</h1>
+    <img src="https://files.oaiusercontent.com/file-tir1gq2WGKa5oSBqrzIakXGB?se=2024-11-22T05%3A11%3A36Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D26de9f65-b987-47c1-a02b-2e0b490f6449.webp&sig=N7bHQp4PbRp2dw2OuHzOtOl1qsLFhMCBOSyd012zxrg%3D" alt="" id="img1">
+  </header>
+
+  <!-- Login Page -->
+  <div id="login-page" class="container">
+    <h2>Login</h2>
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter your username">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" id="password" placeholder="Enter your password">
+    </div>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <!-- Add Items Page -->
+  <div id="add-items-page" class="container hidden">
+    <h2>Our Cakes</h2>
+    <div class="cake-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRpf1eoNbsWblTDxgrmnzqLSutOOZBoo69CNg&s" alt="Chocolate Cake">
+      <div>
+        <h3>Chocolate Cake</h3>
+        <p>Rich and moist chocolate delight.</p>
+        <button onclick="addToCart('Chocolate Cake')">Add to Order</button>
+      </div>
+    </div>
+    <div class="cake-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTblB0Sti5yoLNcDHC0s0eX08K8ljDKLWmfLXcCsejNgYUWIbO_M4dsQopVdZGQ6rg3b3M&usqp=CAU" alt="Vanilla Cake">
+      <div>
+        <h3>Vanilla Cake</h3>
+        <p>Soft and creamy vanilla flavor.</p>
+        <button onclick="addToCart('Vanilla Cake')">Add to Order</button>
+      </div>
+    </div>
+    <div class="cake-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT0APBfsPhp26fwu3s_P0ye5kTZv2wHc31fXQ&s" alt="Red Velvet Cake">
+      <div>
+        <h3>Red Velvet Cake</h3>
+        <p>Elegant and flavorful red velvet.</p>
+        <button onclick="addToCart('Red Velvet Cake')">Add to Order</button>
+      </div>
+    </div>
+    <button onclick="goToOrder()">View Order</button>
+  </div>
+
+  <!-- Order Page -->
+  <div id="order-page" class="container hidden">
+    <h2>Your Order</h2>
+    <ul id="cart-items"></ul>
+    <button onclick="goBack()">Back to Menu</button>
+  </div>
+
+  <script>
+    function showPage(pageId) {
+      document.querySelectorAll('.container').forEach(page => {
+        page.classList.add('hidden');
+      });
+      document.getElementById(pageId).classList.remove('hidden');
+    }
+    function login() {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      if (username === "admin" && password === "password") {
+        alert("Login successful!");
+        showPage('add-items-page');
+      } else {
+        alert("Invalid username or password.");
+      }
+    }
+
+    // Add to Cart
+    const cart = [];
+    function addToCart(item) {
+      cart.push(item);
+      alert(${item} added to your order!);
+    }
+
+    // Go to Order Page
+    function goToOrder() {
+      const cartItems = document.getElementById('cart-items');
+      cartItems.innerHTML = ""; // Clear previous items
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        cartItems.appendChild(li);
+      });
+      showPage('order-page');
+    }
+
+    // Back to Add Items
+    function goBack() {
+      showPage('add-items-page');
+    }
+  </script>
+</body>
+</html>
