@@ -1,0 +1,24 @@
+<?php
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $address = $_POST['address'];
+    $customization = $_POST['customization'] ?? '';
+    $cart = json_decode($_POST['cart'], true);
+    $total_price = $_POST['total_price'];
+    $payment_method = $_POST['payment_method'];
+
+    // Simulate saving to database
+    $order_id = uniqid('ORDER_');
+    $response = [
+        'success' => true,
+        'order_id' => $order_id,
+        'message' => 'Order placed successfully!',
+        'address' => $address,
+        'customization' => $customization,
+        'total_price' => $total_price,
+        'payment_method' => $payment_method,
+        'cart' => $cart,
+    ];
+
+    echo json_encode($response);
+}
+?>
